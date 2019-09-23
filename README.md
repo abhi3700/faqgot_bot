@@ -1,2 +1,2 @@
-# faqgotbot
-Bot on FAQ about Game of Thrones
+# faqgot_bot
+Random image to a command
