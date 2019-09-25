@@ -3,6 +3,7 @@
 """
 import redis
 import json
+import pandas as pd
 from input import REDIS_URL
 
 
@@ -12,6 +13,23 @@ from input import REDIS_URL
 r = redis.from_url(REDIS_URL)
 
 print(r.keys())
+
+# ---------------------------------------------------------------
+df = pd.read_csv("../data/quiz.csv")
+# print(df.head(10))
+
+# all lists
+que_list = df.question.tolist()
+ans_list = df.answer.tolist()
+a_list = df.a.tolist()
+b_list = df.b.tolist()
+c_list = df.c.tolist()
+d_list = df.d.tolist()
+# -----------------------------------------------------------------------------
+"""Setting the database"""
+for i in range(10):
+    r.hset("quiz", str(i), json.dumps(dict(que= que_list[i], ans= ans_list[i], a= a_list[i], b= b_list[i], c= c_list[i], d= d_list[i])))
+
 
 # -----------------------------------------------------------------------------
 """Finding the phone no. if username exists"""
@@ -31,10 +49,6 @@ print(r.keys())
 
 # -----------------------------------------------------------------------------
 """print all keys"""
-# for k in r.keys():
-#     k_decoded = k.decode('utf-8')
-#     # print(k_decoded)
-#     print(json.loads(r.get(k_decoded).decode('utf-8')))
-    # print(json.loads(r.get(k_decoded).decode('utf-8'))['username'])
-    # print(json.loads(r.get(k_decoded).decode('utf-8'))['breed_choice'])
-# print(r.keys())
+# quiz
+for i in range(10):
+    print(json.loads(r.hget("quiz", str(i))))
