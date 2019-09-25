@@ -2,33 +2,37 @@
 	"quiz": {
 		"1": {
 			"que": "Who is the youngest of Ned Stark's children?",
-			"ans": "a",
+			"ans": "B: Rickon",
 			"a": "Bran",
 			"b": "Rickon",
 			"c": "Arya",
 			"d": "Sansa"
 		},
 		"2": {
-			"que": "",
-			"ans": "",
-			"a": "",
-			"b": "",
-			"c": "",
-			"d": ""
+			"que": "Jamie Lannister has a golden ___.",
+			"ans": "A: hand",
+			"a": "hand",
+			"b": "chariot",
+			"c": "sword",
+			"d": "tongue"
 		},
 	},
 	"918145634656": {
-		"username": "abhi3701",
-		"correct_count": 4,
-		"incorrect_count": 4,
-		"total_attempted": 8,
-		"score": 50
+		"user": {
+			"username": "abhi3701",
+			"total_attempt": 0,
+		},
+		"stats": {
+			"correct_count": 0,
+			"incorrect_count": 0,
+			"score": 0
+		}
 	},
 	"918264433324": {
 		"username": "abhi3702",
 		"correct_count": 4,
 		"incorrect_count": 4,
-		"total_attempted": 8,
+		"total_attempt": 8,
 		"score": 50
 	}
 }
