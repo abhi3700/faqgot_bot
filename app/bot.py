@@ -155,7 +155,7 @@ def option_a_callback(query, chat, message):
 
         # update the score
         if (correct_count + incorrect_count) != 0:
-            score = correct_count + incorrect_count
+            score = (correct_count/(correct_count + incorrect_count)) * 100
 
         r.hset(key_phone, "score", score)
         r.hset(key_phone, "user", json.dumps(dict(username= query.sender.username, total_attempt= total_attempt + 1)))
@@ -247,7 +247,7 @@ def option_c_callback(query, chat, message):
 
         # update the score
         if (correct_count + incorrect_count) != 0:
-            score = correct_count + incorrect_count
+            score = (correct_count/(correct_count + incorrect_count)) * 100
 
         r.hset(key_phone, "score", score)
         r.hset(key_phone, "user", json.dumps(dict(username= query.sender.username, total_attempt= total_attempt + 1)))
@@ -293,7 +293,7 @@ def option_d_callback(query, chat, message):
 
         # update the score
         if (correct_count + incorrect_count) != 0:
-            score = correct_count + incorrect_count
+            score = (correct_count/(correct_count + incorrect_count)) * 100
 
         r.hset(key_phone, "score", score)
         r.hset(key_phone, "user", json.dumps(dict(username= query.sender.username, total_attempt= total_attempt + 1)))
