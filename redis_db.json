@@ -35,7 +35,7 @@
 	"91826443332": {
 		"user": {
 			"username": "slc3702",
-			"total_attempt": -1,		// 'quiz not attempted'
+			"total_attempt": -1,		// indicates: 'quiz not attempted'
 		},
 		"stats": {
 			"correct": {
