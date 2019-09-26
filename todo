@@ -1,0 +1,4 @@
+- randomizes the questions
+  Hint:
+    - load FAQs from CSV to Postgres DB.
+    - fetches into quiz key in Redis DB through /random command or do it automatically.
