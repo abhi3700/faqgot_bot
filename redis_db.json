@@ -1,6 +1,6 @@
 {
 	"quiz": {
-		"0": {
+		"1": {
 			"que": "Who is the youngest of Ned Stark's children?",
 			"ans": "B: Rickon",
 			"a": "Bran",
@@ -8,7 +8,7 @@
 			"c": "Arya",
 			"d": "Sansa"
 		},
-		"1": {
+		"2": {
 			"que": "Who is Jon Snow's mother?",
 			"ans": "B: Lyanna Stark",
 			"a": "Cersei Lannister",
@@ -20,31 +20,28 @@
 	"91814563465": {
 		"user": {
 			"username": "abhi3701",
-			"total_attempt": -1,		// indicates: 'quiz not attempted'
+			"total_attempt": 0,		// indicates: 'quiz not attempted'
+		},		
+		"correct": {
+			"count": 0
 		},
-		"stats": {
-			"correct": {
-				"count": 0
-			},
-			"incorrect": {
-				"count": 0
-			},
-			"score": 0
-		}
+		"incorrect": {
+			"count": 0
+		},
+		"score": 0
+		
 	},
 	"91826443332": {
 		"user": {
 			"username": "slc3702",
-			"total_attempt": -1,		// indicates: 'quiz not attempted'
+			"total_attempt": 0,		// indicates: 'quiz not attempted'
 		},
-		"stats": {
-			"correct": {
-				"count": 0
-			},
-			"incorrect": {
-				"count": 0
-			},
-			"score": 0
-		}
+		"correct": {
+			"count": 0
+		},
+		"incorrect": {
+			"count": 0
+		},
+		"score": 0
 	}
 }
