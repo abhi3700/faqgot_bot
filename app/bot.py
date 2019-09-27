@@ -105,12 +105,14 @@ def show_command(chat, message, args):
         if curr_ques_no >= 1 and curr_ques_no <= QUIZ_COUNT:   # from 1 to QUIZ_COUNT
             btns = botogram.Buttons()
             
-            btns[0].callback("A - {option_a}".format(option_a= json.loads(r.hget("quiz", str(curr_ques_no)))['a']), "option_a")     # button - Option A
-            btns[1].callback("B - {option_b}".format(option_b= json.loads(r.hget("quiz", str(curr_ques_no)))['b']), "option_b")     # button - Option B
-            btns[2].callback("C - {option_c}".format(option_c= json.loads(r.hget("quiz", str(curr_ques_no)))['c']), "option_c")     # button - Option C
-            btns[3].callback("D - {option_d}".format(option_d= json.loads(r.hget("quiz", str(curr_ques_no)))['d']), "option_d")     # button - Option D
+            chat.send('curr_ques_no: {0}'.format(curr_ques_no))     # for DEBUG
 
-            chat.send(json.loads(r.hget("quiz", str(curr_ques_no)))['que'], attach= btns)
+            btns[0].callback("A - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['a']), "option_a")     # button - Option A
+            btns[1].callback("B - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['b']), "option_b")     # button - Option B
+            btns[2].callback("C - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['c']), "option_c")     # button - Option C
+            btns[3].callback("D - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['d']), "option_d")     # button - Option D
+
+            chat.send('{0}\n{1}'.format(json.loads(r.hget("quiz", str(curr_ques_no)))['que'], json.loads(r.hget("quiz", str(curr_ques_no)))['img_url']), attach= btns)
         else:
              # TODO: set the curr_ques_no to zero
              chat.send('Your Quiz is over!\nPlay again via /play')
