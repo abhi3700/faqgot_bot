@@ -102,7 +102,7 @@ def show_command(chat, message, args):
         total_attempt = json.loads(r.hget(key_phone, "user"))['total_attempt']       # -1 indicates 'no quiz played'
         curr_ques_no = total_attempt + 1
 
-        if curr_ques_no >= 1 and curr_ques_no <= 10:   # from 1 to 10
+        if curr_ques_no >= 1 and curr_ques_no <= QUIZ_COUNT:   # from 1 to QUIZ_COUNT
             btns = botogram.Buttons()
             
             btns[0].callback("A - {option_a}".format(option_a= json.loads(r.hget("quiz", str(curr_ques_no)))['a']), "option_a")     # button - Option A
@@ -113,7 +113,7 @@ def show_command(chat, message, args):
             chat.send(json.loads(r.hget("quiz", str(curr_ques_no)))['que'], attach= btns)
         else:
              # TODO: set the curr_ques_no to zero
-             chat.send('Invalid Question no.')
+             chat.send('Your Quiz is over!\nPlay again via /play')
     else:
         chat.send("Please, share the phone no. first via /sharephone")
 
