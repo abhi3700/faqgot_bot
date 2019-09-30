@@ -85,7 +85,7 @@ def removekeyboard_command(chat, message):
 
 # ===================================================Play command=================================================================
 @bot.command("play")
-def show_command(chat, message, args):
+def play_command(chat, message, args):
     """Play quiz on \"Game of Thrones (GOT)\" TV series"""
     # find the root phoneno. if username is available in REDIS DB
     key_phone = ""
@@ -99,23 +99,23 @@ def show_command(chat, message, args):
 
 
     if key_phone != "":
-        total_attempt = json.loads(r.hget(key_phone, "user"))['total_attempt']       # -1 indicates 'no quiz played'
+        total_attempt = json.loads(r.hget(key_phone, "user"))['total_attempt']       # 0 indicates 'no quiz played'
         curr_ques_no = total_attempt + 1
 
         if curr_ques_no >= 1 and curr_ques_no <= QUIZ_COUNT:   # from 1 to QUIZ_COUNT
             btns = botogram.Buttons()
             
-            chat.send('curr_ques_no: {0}'.format(curr_ques_no))     # for DEBUG
+            # chat.send('curr_ques_no: {0}'.format(curr_ques_no))     # for DEBUG
 
             btns[0].callback("A - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['a']), "option_a")     # button - Option A
             btns[1].callback("B - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['b']), "option_b")     # button - Option B
             btns[2].callback("C - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['c']), "option_c")     # button - Option C
             btns[3].callback("D - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['d']), "option_d")     # button - Option D
 
-            chat.send('{0}\n{1}'.format(json.loads(r.hget("quiz", str(curr_ques_no)))['que'], json.loads(r.hget("quiz", str(curr_ques_no)))['img_url']), attach= btns)
+            chat.send('{0}. {1}\n{2}'.format(curr_ques_no, json.loads(r.hget("quiz", str(curr_ques_no)))['que'], json.loads(r.hget("quiz", str(curr_ques_no)))['img_url']), attach= btns)
         else:
              # TODO: set the curr_ques_no to zero
-             chat.send('Your Quiz is over!\nPlay again via /play')
+             chat.send('Your Quiz is over!\nPlay again via /playagain')
     else:
         chat.send("Please, share the phone no. first via /sharephone")
 
@@ -153,7 +153,7 @@ def option_a_callback(query, chat, message):
         else:
             incorrect_count = incorrect_count + 1
             r.hset(key_phone, "incorrect", json.dumps(dict(count= incorrect_count)))
-            chat.send("Sorry! the correct answer is: {0}".format(curr_ques_ans))
+            chat.send("Sorry! the correct answer is: \'{0}\'".format(curr_ques_ans))
 
         # update the score
         if (correct_count + incorrect_count) != 0:
@@ -199,7 +199,7 @@ def option_b_callback(query, chat, message):
         else:
             incorrect_count = incorrect_count + 1
             r.hset(key_phone, "incorrect", json.dumps(dict(count= incorrect_count)))
-            chat.send("Sorry! the correct answer is: {0}".format(curr_ques_ans))
+            chat.send("Sorry! the correct answer is: \'{0}\'".format(curr_ques_ans))
 
         # update the score
         if (correct_count + incorrect_count) != 0:
@@ -245,7 +245,7 @@ def option_c_callback(query, chat, message):
         else:
             incorrect_count = incorrect_count + 1
             r.hset(key_phone, "incorrect", json.dumps(dict(count= incorrect_count)))
-            chat.send("Sorry! the correct answer is: {0}".format(curr_ques_ans))
+            chat.send("Sorry! the correct answer is: \'{0}\'".format(curr_ques_ans))
 
         # update the score
         if (correct_count + incorrect_count) != 0:
@@ -291,7 +291,7 @@ def option_d_callback(query, chat, message):
         else:
             incorrect_count = incorrect_count + 1
             r.hset(key_phone, "incorrect", json.dumps(dict(count= incorrect_count)))
-            chat.send("Sorry! the correct answer is: {0}".format(curr_ques_ans))
+            chat.send("Sorry! the correct answer is: \'{0}\'".format(curr_ques_ans))
 
         # update the score
         if (correct_count + incorrect_count) != 0:
@@ -331,6 +331,43 @@ def stats_command(chat, message, args):
             total_attempt,
             correct,
             incorrect))
+    else:
+        chat.send("Please, share the phone no. first via /sharephone")
+
+# ===================================================Play again command=================================================================
+@bot.command("playagain")
+def playagain_command(chat, message, args):
+    """Play quiz on \"Game of Thrones (GOT)\" TV series"""
+    # find the root phoneno. if username is available in REDIS DB
+    key_phone = ""
+    keys_list = r.keys()
+    keys_list.remove(b'quiz')   # list of users (with phone nos.)
+    for k in keys_list:
+        # chat.send(k.decode('utf-8'))
+        dict_nested2_val2 = json.loads(r.hget(k.decode('utf-8'), "user"))
+        if dict_nested2_val2['username'] == message.sender.username:
+            key_phone = k.decode('utf-8')
+
+
+    if key_phone != "":
+        r.hset(key_phone, "user", json.dumps(dict(username=message.sender.username, total_attempt=0)))
+        total_attempt = json.loads(r.hget(key_phone, "user"))['total_attempt']       # 0 indicates 'no quiz played'
+        curr_ques_no = total_attempt + 1
+
+        if curr_ques_no >= 1 and curr_ques_no <= QUIZ_COUNT:   # from 1 to QUIZ_COUNT
+            btns = botogram.Buttons()
+            
+            # chat.send('curr_ques_no: {0}'.format(curr_ques_no))     # for DEBUG
+
+            btns[0].callback("A - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['a']), "option_a")     # button - Option A
+            btns[1].callback("B - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['b']), "option_b")     # button - Option B
+            btns[2].callback("C - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['c']), "option_c")     # button - Option C
+            btns[3].callback("D - {0}".format(json.loads(r.hget("quiz", str(curr_ques_no)))['d']), "option_d")     # button - Option D
+
+            chat.send('{0}. {1}\n{2}'.format(curr_ques_no, json.loads(r.hget("quiz", str(curr_ques_no)))['que'], json.loads(r.hget("quiz", str(curr_ques_no)))['img_url']), attach= btns)
+        else:
+             # TODO: set the curr_ques_no to zero
+             chat.send('Your Quiz is over!\nPlay again via /playagain')
     else:
         chat.send("Please, share the phone no. first via /sharephone")
 

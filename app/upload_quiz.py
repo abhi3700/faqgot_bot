@@ -4,7 +4,7 @@
 import redis
 import json
 import pandas as pd
-from input import REDIS_URL
+from input import *
 
 
 
@@ -28,5 +28,5 @@ imgurl_list = df.img_url.tolist()
 # -----------------------------------------------------------------------------
 """Setting the database"""
 # quiz
-for i in range(len(a_list)):     # loop from 1 to 10
+for i in range(QUIZ_COUNT):     # loop from 1 to 10
     r.hset("quiz", str(i+1), json.dumps(dict(que= que_list[i], ans= ans_list[i], a= a_list[i], b= b_list[i], c= c_list[i], d= d_list[i], img_url= imgurl_list[i])))

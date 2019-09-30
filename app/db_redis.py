@@ -37,17 +37,17 @@ for i in range(10):     # loop from 1 to 10
     r.hset("quiz", str(i+1), json.dumps(dict(que= que_list[i], ans= ans_list[i], a= a_list[i], b= b_list[i], c= c_list[i], d= d_list[i])))
 
 # user details
-r.hset("91834234567", "user", json.dumps(dict(username="abhi3703", total_attempt=-1)))
+r.hset("91834234567", "user", json.dumps(dict(username="abhi3703", total_attempt=0)))
 r.hset("91834234567", "correct", json.dumps(dict(count= 0)))
 r.hset("91834234567", "incorrect", json.dumps(dict(count= 0)))
 r.hset("91834234567", "score", 0)
 
-r.hset("91814563465", "user", json.dumps(dict(username="abhi3702", total_attempt=-1)))
+r.hset("91814563465", "user", json.dumps(dict(username="abhi3702", total_attempt=0)))
 r.hset("91814563465", "correct", json.dumps(dict(count= 0)))
 r.hset("91814563465", "incorrect", json.dumps(dict(count= 0)))
 r.hset("91814563465", "score", 0)
 
-r.hset("91826443332", "user", json.dumps(dict(username="abhi3701", total_attempt=-1)))
+r.hset("91826443332", "user", json.dumps(dict(username="abhi3701", total_attempt=0)))
 r.hset("91826443332", "correct", json.dumps(dict(count= 0)))
 r.hset("91826443332", "incorrect", json.dumps(dict(count= 0)))
 r.hset("91826443332", "score", 0)
