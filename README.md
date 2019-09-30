@@ -7,7 +7,9 @@ A FAQ bot on GOT TV series.
 * questions are numbered from `1` to `10`.
 * `total_attempt` is set to `0`, which indicates that there has been no attempts so far.
 * The entire stats of quiz is seen by `/stats` command.
-* Upload the quiz by clicking on the script [upload_quiz.sh](./scripts/upload_quiz.sh) 
+* Upload the quiz by clicking on the script [upload_quiz.sh](./scripts/upload_quiz.sh)
+* Images also loaded if there is any.
+
 
 ### Database
 * shown in [redis_db.json](./redis_db.json)
