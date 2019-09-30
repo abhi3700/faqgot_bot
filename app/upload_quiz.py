@@ -4,6 +4,7 @@
 import redis
 import json
 import pandas as pd
+import numpy as np
 from input import *
 
 
@@ -14,6 +15,8 @@ r = redis.from_url(REDIS_URL)
 
 # ---------------------------------------------------------------
 df = pd.read_csv("../data/quiz.csv")
+df = df.iloc[np.random.permutation(len(df))]    # randomize each row
+df.reset_index(drop= True, inplace=True)       # reset the index from 0 to ...
 df.fillna('',inplace=True)  # replace NaN with empty string
 # print(df.head(10))
 
