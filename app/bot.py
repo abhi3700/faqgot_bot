@@ -158,6 +158,7 @@ def option_a_callback(query, chat, message):
         # update the score
         if (correct_count + incorrect_count) != 0:
             score = (correct_count/(correct_count + incorrect_count)) * 100
+            score = round(score, 2)     # upto 2 decimal places
 
         r.hset(key_phone, "score", score)
         r.hset(key_phone, "user", json.dumps(dict(username= query.sender.username, total_attempt= total_attempt + 1)))
@@ -204,6 +205,7 @@ def option_b_callback(query, chat, message):
         # update the score
         if (correct_count + incorrect_count) != 0:
             score = (correct_count/(correct_count + incorrect_count)) * 100
+            score = round(score, 2)     # upto 2 decimal places
 
         r.hset(key_phone, "score", score)
         r.hset(key_phone, "user", json.dumps(dict(username= query.sender.username, total_attempt= total_attempt + 1)))
@@ -250,6 +252,7 @@ def option_c_callback(query, chat, message):
         # update the score
         if (correct_count + incorrect_count) != 0:
             score = (correct_count/(correct_count + incorrect_count)) * 100
+            score = round(score, 2)     # upto 2 decimal places
 
         r.hset(key_phone, "score", score)
         r.hset(key_phone, "user", json.dumps(dict(username= query.sender.username, total_attempt= total_attempt + 1)))
@@ -296,6 +299,7 @@ def option_d_callback(query, chat, message):
         # update the score
         if (correct_count + incorrect_count) != 0:
             score = (correct_count/(correct_count + incorrect_count)) * 100
+            score = round(score, 2)     # upto 2 decimal places
 
         r.hset(key_phone, "score", score)
         r.hset(key_phone, "user", json.dumps(dict(username= query.sender.username, total_attempt= total_attempt + 1)))
@@ -337,7 +341,7 @@ def stats_command(chat, message, args):
 # ===================================================Play again command=================================================================
 @bot.command("playagain")
 def playagain_command(chat, message, args):
-    """Play quiz on \"Game of Thrones (GOT)\" TV series"""
+    """Play quiz on \"Game of Thrones (GOT)\" TV series again"""
     # find the root phoneno. if username is available in REDIS DB
     key_phone = ""
     keys_list = r.keys()
@@ -350,7 +354,12 @@ def playagain_command(chat, message, args):
 
 
     if key_phone != "":
+        # Setting 'total_attempt', 'correct', 'incorrect', 'score' to zero
         r.hset(key_phone, "user", json.dumps(dict(username=message.sender.username, total_attempt=0)))
+        r.hset(key_phone, "correct", json.dumps(dict(count= 0)))
+        r.hset(key_phone, "incorrect", json.dumps(dict(count= 0)))
+        r.hset(key_phone, "score", 0)
+
         total_attempt = json.loads(r.hget(key_phone, "user"))['total_attempt']       # 0 indicates 'no quiz played'
         curr_ques_no = total_attempt + 1
 
