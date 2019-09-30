@@ -21,6 +21,6 @@ A FAQ bot on GOT TV series.
 * Inside `user` key, 2 key, value pairs: `username` & `total_attempt`
 * Inside `correct` key, 1 key, value pair: `count`
 * Inside `incorrect` key, 1 key, value pair: `count`
-* Last, `score` key has value
+* Last, `score` key has value. The value stored is rounded upto 2 decimal places.
 
 > NOTE: `correct`, `incorrect`, `score` has been separated with individual keys as this needs to update independently as the quiz progress. 
